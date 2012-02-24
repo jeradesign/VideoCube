@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -27,51 +28,55 @@ enum
     NUM_ATTRIBUTES
 };
 
-GLfloat gCubeVertexData[216] = 
+// three xyz coordinates, three normal coordinates, two texture coordinates *
+// four bytes per coordinate *
+// six vertices per face *
+// six faces per cube
+GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] = 
 {
     // Data layout for each line below is:
-    // positionX, positionY, positionZ,     normalX, normalY, normalZ,
-    0.5f, -0.5f, -0.5f,        1.0f, 0.0f, 0.0f,
-    0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
-    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
-    0.5f, 0.5f, -0.5f,          1.0f, 0.0f, 0.0f,
-    0.5f, 0.5f, 0.5f,         1.0f, 0.0f, 0.0f,
+    // positionX, positionY, positionZ,     normalX, normalY, normalZ, texCoord0S. texCoord0T,
+    0.5f, -0.5f, -0.5f,        1.0f, 0.0f, 0.0f,  0.0, 0.0,
+    0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,  1.0, 0.0,
+    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,  0.0, 1.0,
+    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,  0.0, 1.0,
+    0.5f, 0.5f, 0.5f,          1.0f, 0.0f, 0.0f,  1.0, 1.0,
+    0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,  1.0, 0.0,
     
-    0.5f, 0.5f, -0.5f,         0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
-    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
-    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,
-    -0.5f, 0.5f, 0.5f,         0.0f, 1.0f, 0.0f,
+    0.5f, 0.5f, -0.5f,         0.0f, 1.0f, 0.0f,  1.0, 0.0,
+    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,  0.0, 0.0,
+    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,  1.0, 1.0,
+    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,  1.0, 1.0,
+    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,  0.0, 0.0,
+    -0.5f, 0.5f, 0.5f,         0.0f, 1.0f, 0.0f,  0.0, 1.0,
     
-    -0.5f, 0.5f, -0.5f,        -1.0f, 0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
-    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
-    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f,
-    -0.5f, -0.5f, 0.5f,        -1.0f, 0.0f, 0.0f,
+    -0.5f, 0.5f, -0.5f,        -1.0f, 0.0f, 0.0f, 1.0, 0.0,
+    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f, 0.0, 0.0,
+    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f, 1.0, 1.0,
+    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f, 1.0, 1.0,
+    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f, 0.0, 0.0,
+    -0.5f, -0.5f, 0.5f,        -1.0f, 0.0f, 0.0f, 0.0, 1.0,
     
-    -0.5f, -0.5f, -0.5f,       0.0f, -1.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
-    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
-    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f,
-    0.5f, -0.5f, 0.5f,         0.0f, -1.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,       0.0f, -1.0f, 0.0f, 0.0, 0.0,
+    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f, 1.0, 0.0,
+    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f, 0.0, 1.0,
+    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f, 0.0, 1.0,
+    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f, 1.0, 0.0,
+    0.5f, -0.5f, 0.5f,         0.0f, -1.0f, 0.0f, 1.0, 1.0,
     
-    0.5f, 0.5f, 0.5f,          0.0f, 0.0f, 1.0f,
-    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,
-    -0.5f, -0.5f, 0.5f,        0.0f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.5f,          0.0f, 0.0f, 1.0f,  1.0, 1.0,
+    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  0.0, 1.0,
+    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  1.0, 0.0,
+    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  1.0, 0.0,
+    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  0.0, 1.0,
+    -0.5f, -0.5f, 0.5f,        0.0f, 0.0f, 1.0f,  0.0, 0.0,
     
-    0.5f, -0.5f, -0.5f,        0.0f, 0.0f, -1.0f,
-    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
-    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
-    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f,
-    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f,
-    -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
+    0.5f, -0.5f, -0.5f,        0.0f, 0.0f, -1.0f, 1.0, 0.0,
+    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f, 0.0, 0.0,
+    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f, 1.0, 1.0,
+    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f, 1.0, 1.0,
+    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f, 0.0, 0.0,
+    -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f, 0.0, 1.0,
 };
 
 @interface ViewController () {
@@ -83,9 +88,13 @@ GLfloat gCubeVertexData[216] =
     
     GLuint _vertexArray;
     GLuint _vertexBuffer;
+    
+    AVCaptureDevice *_cameraDevice;
+    AVCaptureSession *_session;
+
+    AVCaptureVideoPreviewLayer *_previewLayer;
 }
 @property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) GLKBaseEffect *effect;
 
 - (void)setupGL;
 - (void)tearDownGL;
@@ -97,9 +106,9 @@ GLfloat gCubeVertexData[216] =
 @end
 
 @implementation ViewController
+@synthesize previewView = _previewView;
 
 @synthesize context = _context;
-@synthesize effect = _effect;
 
 - (void)viewDidLoad
 {
@@ -115,19 +124,23 @@ GLfloat gCubeVertexData[216] =
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
+    [self setupCamera];
+    [self turnCameraOn];
     [self setupGL];
 }
 
 - (void)viewDidUnload
 {    
+    [self setPreviewView:nil];
     [super viewDidUnload];
     
     [self tearDownGL];
+    [self turnCameraOff];
     
     if ([EAGLContext currentContext] == self.context) {
         [EAGLContext setCurrentContext:nil];
     }
-	self.context = nil;
+    self.context = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,11 +151,7 @@ GLfloat gCubeVertexData[216] =
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)setupGL
@@ -150,10 +159,6 @@ GLfloat gCubeVertexData[216] =
     [EAGLContext setCurrentContext:self.context];
     
     [self loadShaders];
-    
-    self.effect = [[GLKBaseEffect alloc] init];
-    self.effect.light0.enabled = GL_TRUE;
-    self.effect.light0.diffuseColor = GLKVector4Make(1.0f, 0.4f, 0.4f, 1.0f);
     
     glEnable(GL_DEPTH_TEST);
     
@@ -165,9 +170,11 @@ GLfloat gCubeVertexData[216] =
     glBufferData(GL_ARRAY_BUFFER, sizeof(gCubeVertexData), gCubeVertexData, GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(0));
     glEnableVertexAttribArray(GLKVertexAttribNormal);
-    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(12));
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(12));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
     glBindVertexArrayOES(0);
 }
@@ -178,8 +185,6 @@ GLfloat gCubeVertexData[216] =
     
     glDeleteBuffers(1, &_vertexBuffer);
     glDeleteVertexArraysOES(1, &_vertexArray);
-    
-    self.effect = nil;
     
     if (_program) {
         glDeleteProgram(_program);
@@ -193,21 +198,13 @@ GLfloat gCubeVertexData[216] =
 {
     float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-    
-    self.effect.transform.projectionMatrix = projectionMatrix;
-    
+        
     GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
     baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
     
-    // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-    
-    self.effect.transform.modelviewMatrix = modelViewMatrix;
-    
     // Compute the model view matrix for the object rendered with ES2
-    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
+    GLKMatrix4 modelViewMatrix;
+    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
     
@@ -224,11 +221,6 @@ GLfloat gCubeVertexData[216] =
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     glBindVertexArrayOES(_vertexArray);
-    
-    // Render the object with GLKit
-    [self.effect prepareToDraw];
-    
-    glDrawArrays(GL_TRIANGLES, 0, 36);
     
     // Render the object again with ES2
     glUseProgram(_program);
@@ -390,5 +382,64 @@ GLfloat gCubeVertexData[216] =
     
     return YES;
 }
+
+#pragma mark - Camera support
+
+- (void)setupCamera {
+    _cameraDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+}
+
+- (void)turnCameraOn {
+    NSError *error;
+    _session = [[AVCaptureSession alloc] init];
+    [_session beginConfiguration];
+    [_session setSessionPreset:AVCaptureSessionPresetMedium];
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:_cameraDevice
+                                                                        error:&error];
+    if (input == nil) {
+        NSLog(@"%@", error);
+    }
+    
+    [_session addInput:input];
+    
+    // Create a VideoDataOutput and add it to the session
+    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
+    [_session addOutput:output];
+    
+    // Configure your output.
+    //  dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+    [output setSampleBufferDelegate:self queue:dispatch_get_main_queue() /* queue */];
+    //  dispatch_release(queue);
+    
+    // Specify the pixel format
+    output.videoSettings = 
+    [NSDictionary dictionaryWithObject:
+     [NSNumber numberWithInt:kCVPixelFormatType_32BGRA] 
+                                forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+    
+    // Start the session running to start the flow of data
+    [_session commitConfiguration];
+    [_session startRunning];
+    
+    _previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
+    _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
+    [_previewLayer setOrientation:orientation];
+    _previewLayer.frame = self.previewView.bounds;
+    [self.previewView.layer addSublayer:_previewLayer];
+}
+
+- (void)turnCameraOff {
+    [_previewLayer removeFromSuperlayer];
+    _previewLayer = nil;
+    [_session stopRunning];
+    _session = nil;
+}
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    // Get a CMSampleBuffer's Core Video image buffer for the media data
+//    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+}
+
 
 @end

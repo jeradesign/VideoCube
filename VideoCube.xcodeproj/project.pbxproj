@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4215BE7914F5E04F008C2B6B /* Phantom Zone.png in Resources */ = {isa = PBXBuildFile; fileRef = 4215BE7814F5E04F008C2B6B /* Phantom Zone.png */; };
+		4215BE7C14F5E057008C2B6B /* Phantom Zonex2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4215BE7B14F5E057008C2B6B /* Phantom Zonex2.png */; };
+		429143B014F5AF9500290BD7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429143AF14F5AF9500290BD7 /* AVFoundation.framework */; };
+		429143B314F5AFA000290BD7 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429143B214F5AFA000290BD7 /* CoreVideo.framework */; };
+		429143B514F5AFB300290BD7 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429143B414F5AFB300290BD7 /* CoreMedia.framework */; };
 		429C638414F592BB00030C2B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429C638314F592BB00030C2B /* UIKit.framework */; };
 		429C638614F592BB00030C2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429C638514F592BB00030C2B /* Foundation.framework */; };
 		429C638814F592BB00030C2B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429C638714F592BB00030C2B /* CoreGraphics.framework */; };
@@ -23,23 +28,28 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4215BE7814F5E04F008C2B6B /* Phantom Zone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phantom Zone.png"; sourceTree = "<group>"; };
+		4215BE7B14F5E057008C2B6B /* Phantom Zonex2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Phantom Zonex2.png"; sourceTree = "<group>"; };
+		429143AF14F5AF9500290BD7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		429143B214F5AFA000290BD7 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		429143B414F5AFB300290BD7 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		429C637F14F592BB00030C2B /* VideoCube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoCube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		429C638314F592BB00030C2B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		429C638514F592BB00030C2B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		429C638714F592BB00030C2B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		429C638914F592BB00030C2B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		429C638B14F592BB00030C2B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		429C638F14F592BB00030C2B /* VideoCube-Info.plist */ = {isa = PBXFileReference; path = "VideoCube-Info.plist"; sourceTree = "<group>"; };
+		429C638F14F592BB00030C2B /* VideoCube-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VideoCube-Info.plist"; sourceTree = "<group>"; };
 		429C639114F592BB00030C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		429C639314F592BB00030C2B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		429C639514F592BB00030C2B /* VideoCube-Prefix.pch */ = {isa = PBXFileReference; path = "VideoCube-Prefix.pch"; sourceTree = "<group>"; };
-		429C639614F592BB00030C2B /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		429C639514F592BB00030C2B /* VideoCube-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VideoCube-Prefix.pch"; sourceTree = "<group>"; };
+		429C639614F592BB00030C2B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		429C639714F592BB00030C2B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		429C639A14F592BB00030C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		429C639D14F592BB00030C2B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		429C639F14F592BB00030C2B /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
 		429C63A114F592BB00030C2B /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
-		429C63A314F592BB00030C2B /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		429C63A314F592BB00030C2B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		429C63A414F592BB00030C2B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,6 +58,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				429143B514F5AFB300290BD7 /* CoreMedia.framework in Frameworks */,
+				429143B314F5AFA000290BD7 /* CoreVideo.framework in Frameworks */,
+				429143B014F5AF9500290BD7 /* AVFoundation.framework in Frameworks */,
 				429C638414F592BB00030C2B /* UIKit.framework in Frameworks */,
 				429C638614F592BB00030C2B /* Foundation.framework in Frameworks */,
 				429C638814F592BB00030C2B /* CoreGraphics.framework in Frameworks */,
@@ -62,6 +75,11 @@
 		429C637414F592BB00030C2B = {
 			isa = PBXGroup;
 			children = (
+				4215BE7B14F5E057008C2B6B /* Phantom Zonex2.png */,
+				4215BE7814F5E04F008C2B6B /* Phantom Zone.png */,
+				429143B414F5AFB300290BD7 /* CoreMedia.framework */,
+				429143B214F5AFA000290BD7 /* CoreVideo.framework */,
+				429143AF14F5AF9500290BD7 /* AVFoundation.framework */,
 				429C638D14F592BB00030C2B /* VideoCube */,
 				429C638214F592BB00030C2B /* Frameworks */,
 				429C638014F592BB00030C2B /* Products */,
@@ -171,6 +189,8 @@
 				429C639E14F592BB00030C2B /* MainStoryboard_iPad.storyboard in Resources */,
 				429C63A014F592BB00030C2B /* Shader.fsh in Resources */,
 				429C63A214F592BB00030C2B /* Shader.vsh in Resources */,
+				4215BE7914F5E04F008C2B6B /* Phantom Zone.png in Resources */,
+				4215BE7C14F5E057008C2B6B /* Phantom Zonex2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +327,7 @@
 				429C63AA14F592BB00030C2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
