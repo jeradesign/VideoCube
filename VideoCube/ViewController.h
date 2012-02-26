@@ -12,5 +12,4 @@
 
 @interface ViewController : GLKViewController <AVCaptureVideoDataOutputSampleBufferDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *previewView;
 @end

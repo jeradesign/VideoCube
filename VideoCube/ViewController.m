@@ -35,49 +35,50 @@ enum
 // six faces per cube
 GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] = 
 {
-    // Data layout for each line below is:
-    // positionX, positionY, positionZ,     normalX, normalY, normalZ, texCoord0S. texCoord0T,
-    0.5f, -0.5f, -0.5f,        1.0f, 0.0f, 0.0f,  0.0, 0.0,
-    0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,  1.0, 0.0,
-    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,  0.0, 1.0,
-    0.5f, -0.5f, 0.5f,         1.0f, 0.0f, 0.0f,  0.0, 1.0,
-    0.5f, 0.5f, 0.5f,          1.0f, 0.0f, 0.0f,  1.0, 1.0,
-    0.5f, 0.5f, -0.5f,         1.0f, 0.0f, 0.0f,  1.0, 0.0,
+// Data layout for each line below is:
+//         position                    normal            texCoord0
+//      X,     Y,     Z,           X,     Y,     Z,       S.     T,
+     0.5f, -0.5f, -0.5f,        1.0f,  0.0f,  0.0f,     0.875, 1.0,
+     0.5f,  0.5f, -0.5f,        1.0f,  0.0f,  0.0f,     0.125, 1.0,
+     0.5f, -0.5f,  0.5f,        1.0f,  0.0f,  0.0f,     0.875, 0.0,
+     0.5f, -0.5f,  0.5f,        1.0f,  0.0f,  0.0f,     0.875, 0.0,
+     0.5f,  0.5f,  0.5f,        1.0f,  0.0f,  0.0f,     0.125, 0.0,
+     0.5f,  0.5f, -0.5f,        1.0f,  0.0f,  0.0f,     0.125, 1.0,
     
-    0.5f, 0.5f, -0.5f,         0.0f, 1.0f, 0.0f,  1.0, 0.0,
-    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,  0.0, 0.0,
-    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,  1.0, 1.0,
-    0.5f, 0.5f, 0.5f,          0.0f, 1.0f, 0.0f,  1.0, 1.0,
-    -0.5f, 0.5f, -0.5f,        0.0f, 1.0f, 0.0f,  0.0, 0.0,
-    -0.5f, 0.5f, 0.5f,         0.0f, 1.0f, 0.0f,  0.0, 1.0,
+     0.5f,  0.5f, -0.5f,        0.0f,  1.0f,  0.0f,     0.125, 1.0,
+    -0.5f,  0.5f, -0.5f,        0.0f,  1.0f,  0.0f,     0.125, 0.0,
+     0.5f,  0.5f,  0.5f,        0.0f,  1.0f,  0.0f,     0.875, 1.0,
+     0.5f,  0.5f,  0.5f,        0.0f,  1.0f,  0.0f,     0.875, 1.0,
+    -0.5f,  0.5f, -0.5f,        0.0f,  1.0f,  0.0f,     0.125, 0.0,
+    -0.5f,  0.5f,  0.5f,        0.0f,  1.0f,  0.0f,     0.875, 0.0,
     
-    -0.5f, 0.5f, -0.5f,        -1.0f, 0.0f, 0.0f, 1.0, 0.0,
-    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f, 0.0, 0.0,
-    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f, 1.0, 1.0,
-    -0.5f, 0.5f, 0.5f,         -1.0f, 0.0f, 0.0f, 1.0, 1.0,
-    -0.5f, -0.5f, -0.5f,       -1.0f, 0.0f, 0.0f, 0.0, 0.0,
-    -0.5f, -0.5f, 0.5f,        -1.0f, 0.0f, 0.0f, 0.0, 1.0,
+    -0.5f,  0.5f, -0.5f,       -1.0f,  0.0f,  0.0f,     0.125, 0.0,
+    -0.5f, -0.5f, -0.5f,       -1.0f,  0.0f,  0.0f,     0.875, 0.0,
+    -0.5f,  0.5f,  0.5f,       -1.0f,  0.0f,  0.0f,     0.125, 1.0,
+    -0.5f,  0.5f,  0.5f,       -1.0f,  0.0f,  0.0f,     0.125, 1.0,
+    -0.5f, -0.5f, -0.5f,       -1.0f,  0.0f,  0.0f,     0.875, 0.0,
+    -0.5f, -0.5f,  0.5f,       -1.0f,  0.0f,  0.0f,     0.875, 1.0,
     
-    -0.5f, -0.5f, -0.5f,       0.0f, -1.0f, 0.0f, 0.0, 0.0,
-    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f, 1.0, 0.0,
-    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f, 0.0, 1.0,
-    -0.5f, -0.5f, 0.5f,        0.0f, -1.0f, 0.0f, 0.0, 1.0,
-    0.5f, -0.5f, -0.5f,        0.0f, -1.0f, 0.0f, 1.0, 0.0,
-    0.5f, -0.5f, 0.5f,         0.0f, -1.0f, 0.0f, 1.0, 1.0,
+    -0.5f, -0.5f, -0.5f,        0.0f, -1.0f,  0.0f,     0.875, 0.0,
+     0.5f, -0.5f, -0.5f,        0.0f, -1.0f,  0.0f,     0.875, 1.0,
+    -0.5f, -0.5f,  0.5f,        0.0f, -1.0f,  0.0f,     0.125, 0.0,
+    -0.5f, -0.5f,  0.5f,        0.0f, -1.0f,  0.0f,     0.125, 0.0,
+     0.5f, -0.5f, -0.5f,        0.0f, -1.0f,  0.0f,     0.875, 1.0,
+     0.5f, -0.5f,  0.5f,        0.0f, -1.0f,  0.0f,     0.125, 1.0,
     
-    0.5f, 0.5f, 0.5f,          0.0f, 0.0f, 1.0f,  1.0, 1.0,
-    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  0.0, 1.0,
-    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  1.0, 0.0,
-    0.5f, -0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  1.0, 0.0,
-    -0.5f, 0.5f, 0.5f,         0.0f, 0.0f, 1.0f,  0.0, 1.0,
-    -0.5f, -0.5f, 0.5f,        0.0f, 0.0f, 1.0f,  0.0, 0.0,
+     0.5f,  0.5f,  0.5f,        0.0f,  0.0f,  1.0f,     0.125, 1.0,
+    -0.5f,  0.5f,  0.5f,        0.0f,  0.0f,  1.0f,     0.125, 0.0,
+     0.5f, -0.5f,  0.5f,        0.0f,  0.0f,  1.0f,     0.875, 1.0,
+     0.5f, -0.5f,  0.5f,        0.0f,  0.0f,  1.0f,     0.875, 1.0,
+    -0.5f,  0.5f,  0.5f,        0.0f,  0.0f,  1.0f,     0.125, 0.0,
+    -0.5f, -0.5f,  0.5f,        0.0f,  0.0f,  1.0f,     0.875, 0.0,
     
-    0.5f, -0.5f, -0.5f,        0.0f, 0.0f, -1.0f, 1.0, 0.0,
-    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f, 0.0, 0.0,
-    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f, 1.0, 1.0,
-    0.5f, 0.5f, -0.5f,         0.0f, 0.0f, -1.0f, 1.0, 1.0,
-    -0.5f, -0.5f, -0.5f,       0.0f, 0.0f, -1.0f, 0.0, 0.0,
-    -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f, 0.0, 1.0,
+     0.5f, -0.5f, -0.5f,        0.0f,  0.0f, -1.0f,     0.875, 0.0,
+    -0.5f, -0.5f, -0.5f,        0.0f,  0.0f, -1.0f,     0.875, 1.0,
+     0.5f,  0.5f, -0.5f,        0.0f,  0.0f, -1.0f,     0.125, 0.0,
+     0.5f,  0.5f, -0.5f,        0.0f,  0.0f, -1.0f,     0.125, 0.0,
+    -0.5f, -0.5f, -0.5f,        0.0f,  0.0f, -1.0f,     0.875, 1.0,
+    -0.5f,  0.5f, -0.5f,        0.0f,  0.0f, -1.0f,     0.125, 1.0,
 };
 
 @interface ViewController () {
@@ -92,11 +93,11 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     
     AVCaptureDevice *_cameraDevice;
     AVCaptureSession *_session;
-
-    AVCaptureVideoPreviewLayer *_previewLayer;
     
     CVOpenGLESTextureCacheRef _textureCache;
     CVOpenGLESTextureRef    _cvTexture;
+
+    GLuint _textureId;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -107,10 +108,11 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
 - (BOOL)linkProgram:(GLuint)prog;
 - (BOOL)validateProgram:(GLuint)prog;
+
+- (void)setupSimpleTexture;
 @end
 
 @implementation ViewController
-@synthesize previewView = _previewView;
 
 @synthesize context = _context;
 
@@ -135,7 +137,6 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
 
 - (void)viewDidUnload
 {    
-    [self setPreviewView:nil];
     [super viewDidUnload];
     
     [self tearDownGL];
@@ -182,7 +183,9 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     
     glBindVertexArrayOES(0);
     
-    glActiveTexture(GL_TEXTURE0);
+//    glActiveTexture(GL_TEXTURE0);
+
+//    [self setupSimpleTexture];
 
     CVReturn error = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault,
                                                   NULL,
@@ -192,6 +195,34 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     if (error != kCVReturnSuccess) {
         NSLog(@"CVOpenGLESTextureCacheCreate returned %d", error);
     }
+}
+
+- (void)setupSimpleTexture 
+{
+    // 2 x 2 Image, 3 bytes per pixel(R, G, B)
+    static GLubyte pixels[4 * 3] = 
+    {
+        255, 0, 0, // red
+        0, 255, 0, // green
+        0, 0, 255, // blue
+        255, 255, 0, // yellow
+    };
+    
+    // Use tightly packed data
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // Generate a texture object
+    glGenTextures(1, &_textureId);
+    
+    //Bind the texture object
+    glBindTexture(GL_TEXTURE_2D, _textureId);
+    
+    // Load the texture
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+    
+    // Set the filtering mode
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 - (void)tearDownGL
@@ -214,20 +245,20 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
         
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
-    
-    // Compute the model view matrix for the object rendered with ES2
-    GLKMatrix4 modelViewMatrix;
-    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -2.0f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+    
+//    // Compute the model view matrix for the object rendered with ES2
+//    GLKMatrix4 modelViewMatrix;
+//    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+//    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+//    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
     
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     
-    _rotation += self.timeSinceLastUpdate * 0.5f;
+    _rotation += self.timeSinceLastUpdate * 2.0f;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -248,7 +279,10 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     glActiveTexture(GL_TEXTURE0);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); 
-    glBindTexture(CVOpenGLESTextureGetName(_cvTexture), CVOpenGLESTextureGetName(_cvTexture));
+    glBindTexture(CVOpenGLESTextureGetTarget(_cvTexture), CVOpenGLESTextureGetName(_cvTexture));
+    // Set the filtering mode
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     
     glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -412,6 +446,14 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
 
 - (void)setupCamera {
     _cameraDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    NSArray *devices = [AVCaptureDevice devices];
+    for (AVCaptureDevice *device in devices) {
+        if (device.position == AVCaptureDevicePositionFront) {
+            _cameraDevice = device;
+            break;
+        }
+    }
+    
 }
 
 - (void)turnCameraOn {
@@ -429,34 +471,28 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     
     // Create a VideoDataOutput and add it to the session
     AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
-    [_session addOutput:output];
     
     // Configure your output.
     //  dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
     [output setSampleBufferDelegate:self queue:dispatch_get_main_queue() /* queue */];
     //  dispatch_release(queue);
     
+    [output setAlwaysDiscardsLateVideoFrames:YES];
+
     // Specify the pixel format
     output.videoSettings = 
     [NSDictionary dictionaryWithObject:
      [NSNumber numberWithInt:kCVPixelFormatType_32BGRA] 
                                 forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+
+    [_session addOutput:output];
     
     // Start the session running to start the flow of data
     [_session commitConfiguration];
     [_session startRunning];
-    
-    _previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-    _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
-    [_previewLayer setOrientation:orientation];
-    _previewLayer.frame = self.previewView.bounds;
-    [self.previewView.layer addSublayer:_previewLayer];
 }
 
 - (void)turnCameraOff {
-    [_previewLayer removeFromSuperlayer];
-    _previewLayer = nil;
     [_session stopRunning];
     _session = nil;
 }
@@ -471,6 +507,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     size_t height = CVPixelBufferGetHeight(imageBuffer);
     
     if (_cvTexture) {
+        glFlush();
         CFRelease(_cvTexture);
         _cvTexture = nil;
         CVOpenGLESTextureCacheFlush(_textureCache, 0);
