@@ -16,6 +16,7 @@ enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
+    UNIFORM_TEXTURE,
     NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
@@ -93,6 +94,9 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     AVCaptureSession *_session;
 
     AVCaptureVideoPreviewLayer *_previewLayer;
+    
+    CVOpenGLESTextureCacheRef _textureCache;
+    CVOpenGLESTextureRef    _cvTexture;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -177,6 +181,17 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_FLOAT, GL_FALSE, 32, BUFFER_OFFSET(24));
     
     glBindVertexArrayOES(0);
+    
+    glActiveTexture(GL_TEXTURE0);
+
+    CVReturn error = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault,
+                                                  NULL,
+                                                  (__bridge void*) self.context,
+                                                  NULL,
+                                                  &_textureCache);
+    if (error != kCVReturnSuccess) {
+        NSLog(@"CVOpenGLESTextureCacheCreate returned %d", error);
+    }
 }
 
 - (void)tearDownGL
@@ -221,12 +236,20 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     glBindVertexArrayOES(_vertexArray);
-    
+        
     // Render the object again with ES2
     glUseProgram(_program);
     
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE0);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); 
+    glBindTexture(CVOpenGLESTextureGetName(_cvTexture), CVOpenGLESTextureGetName(_cvTexture));
+    glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
@@ -265,6 +288,7 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     // This needs to be done prior to linking.
     glBindAttribLocation(_program, ATTRIB_VERTEX, "position");
     glBindAttribLocation(_program, ATTRIB_NORMAL, "normal");
+    glBindAttribLocation(_program, GLKVertexAttribTexCoord0, "texCoord0");
     
     // Link program.
     if (![self linkProgram:_program]) {
@@ -289,6 +313,7 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     // Get uniform locations.
     uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
     uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
+    uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(_program, "texture");
     
     // Release vertex and fragment shaders.
     if (vertShader) {
@@ -436,10 +461,76 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     _session = nil;
 }
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+- (void)captureOutput:(AVCaptureOutput *)captureOutput
+didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+       fromConnection:(AVCaptureConnection *)connection {
+    CVReturn error;
     // Get a CMSampleBuffer's Core Video image buffer for the media data
-//    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
+    
+    if (_cvTexture) {
+        CFRelease(_cvTexture);
+        _cvTexture = nil;
+        CVOpenGLESTextureCacheFlush(_textureCache, 0);
+    }
+    error = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                         _textureCache,
+                                                         imageBuffer,
+                                                         NULL,
+                                                         GL_TEXTURE_2D,
+                                                         GL_RGBA,
+                                                         width,
+                                                         height,
+                                                         GL_BGRA,
+                                                         GL_UNSIGNED_BYTE,
+                                                         0,
+                                                         &_cvTexture);
+    if (error != kCVReturnSuccess) {
+        NSLog(@"CVOpenGLESTextureCacheCreateTextureFromImage returned %d", error);
+    }
 }
 
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

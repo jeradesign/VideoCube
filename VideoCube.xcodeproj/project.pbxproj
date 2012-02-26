@@ -111,12 +111,12 @@
 			children = (
 				429C639614F592BB00030C2B /* AppDelegate.h */,
 				429C639714F592BB00030C2B /* AppDelegate.m */,
-				429C639914F592BB00030C2B /* MainStoryboard_iPhone.storyboard */,
-				429C639C14F592BB00030C2B /* MainStoryboard_iPad.storyboard */,
-				429C639F14F592BB00030C2B /* Shader.fsh */,
-				429C63A114F592BB00030C2B /* Shader.vsh */,
 				429C63A314F592BB00030C2B /* ViewController.h */,
 				429C63A414F592BB00030C2B /* ViewController.m */,
+				429C639F14F592BB00030C2B /* Shader.fsh */,
+				429C63A114F592BB00030C2B /* Shader.vsh */,
+				429C639914F592BB00030C2B /* MainStoryboard_iPhone.storyboard */,
+				429C639C14F592BB00030C2B /* MainStoryboard_iPad.storyboard */,
 				429C638E14F592BB00030C2B /* Supporting Files */,
 			);
 			path = VideoCube;
