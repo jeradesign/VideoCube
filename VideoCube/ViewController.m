@@ -286,6 +286,7 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     
     glDrawArrays(GL_TRIANGLES, 0, 36);
+    glFlush();
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
@@ -507,11 +508,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     size_t height = CVPixelBufferGetHeight(imageBuffer);
     
     if (_cvTexture) {
-        glFlush();
         CFRelease(_cvTexture);
         _cvTexture = nil;
         CVOpenGLESTextureCacheFlush(_textureCache, 0);
     }
+    glActiveTexture(GL_TEXTURE0);
     error = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
                                                          _textureCache,
                                                          imageBuffer,
