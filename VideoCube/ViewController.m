@@ -528,6 +528,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     if (error != kCVReturnSuccess) {
         NSLog(@"CVOpenGLESTextureCacheCreateTextureFromImage returned %d", error);
     }
+    
+    // Bind texture immediately, or you'll get occasional flicker.
+    glBindTexture(CVOpenGLESTextureGetTarget(_cvTexture), CVOpenGLESTextureGetName(_cvTexture));
 }
 
 
