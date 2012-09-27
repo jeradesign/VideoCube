@@ -189,7 +189,7 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
 
     CVReturn error = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault,
                                                   NULL,
-                                                  (__bridge void*) self.context,
+                                                  self.context,
                                                   NULL,
                                                   &_textureCache);
     if (error != kCVReturnSuccess) {

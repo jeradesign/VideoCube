@@ -25,6 +25,7 @@
 		429C63A014F592BB00030C2B /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 429C639F14F592BB00030C2B /* Shader.fsh */; };
 		429C63A214F592BB00030C2B /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 429C63A114F592BB00030C2B /* Shader.vsh */; };
 		429C63A514F592BB00030C2B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429C63A414F592BB00030C2B /* ViewController.m */; };
+		42A44C441613DDEE00F2503B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42A44C431613DDEE00F2503B /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		429C63A114F592BB00030C2B /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		429C63A314F592BB00030C2B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		429C63A414F592BB00030C2B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		42A44C431613DDEE00F2503B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		429C637414F592BB00030C2B = {
 			isa = PBXGroup;
 			children = (
+				42A44C431613DDEE00F2503B /* Default-568h@2x.png */,
 				4215BE7B14F5E057008C2B6B /* Phantom Zonex2.png */,
 				4215BE7814F5E04F008C2B6B /* Phantom Zone.png */,
 				429143B414F5AFB300290BD7 /* CoreMedia.framework */,
@@ -191,6 +194,7 @@
 				429C63A214F592BB00030C2B /* Shader.vsh in Resources */,
 				4215BE7914F5E04F008C2B6B /* Phantom Zone.png in Resources */,
 				4215BE7C14F5E057008C2B6B /* Phantom Zonex2.png in Resources */,
+				42A44C441613DDEE00F2503B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
