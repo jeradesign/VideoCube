@@ -263,6 +263,9 @@ GLfloat gCubeVertexData[(3 + 3 + 2) * 4 * 6 * 6] =
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+    if (_cvTexture == nil) {
+        return;
+    }
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
