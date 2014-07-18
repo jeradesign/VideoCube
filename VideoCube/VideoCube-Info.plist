@@ -14,6 +14,23 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>VideoCube_120</string>
+				<string>Phantom Zone.png</string>
+				<string>Phantom Zonex2.png</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>CFBundleIcons~ipad</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>VideoCube_152</string>
+				<string>VideoCube_76</string>
+				<string>VideoCube_120</string>
 				<string>Phantom Zone.png</string>
 				<string>Phantom Zonex2.png</string>
 			</array>
